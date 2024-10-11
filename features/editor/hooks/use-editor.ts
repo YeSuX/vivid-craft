@@ -1,7 +1,16 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import * as fabric from "fabric";
+import { useAutoResize } from "./use-auto-resize";
 
 export const useEditor = () => {
+    const [canvas, setCanvas] = useState<fabric.Canvas | null>(null)
+    const [container, setContainer] = useState<HTMLDivElement | null>(null)
+
+
+    useAutoResize({
+        canvas,
+        container
+    })
 
     // this is the function that will be used to initialize the editor
     const init = useCallback((
@@ -35,6 +44,9 @@ export const useEditor = () => {
             top: 100,
             left: 100,
         })
+
+        test.cornerStyle = 'circle'
+
         const initialWorkspace = new fabric.Rect({
             width: 900,
             height: 1200,
@@ -59,6 +71,9 @@ export const useEditor = () => {
 
         initialCanvas.add(test)
         initialCanvas.centerObject(test)
+
+        setCanvas(initialCanvas)
+        setContainer(initialContainer)
     }, [])
 
     return {
