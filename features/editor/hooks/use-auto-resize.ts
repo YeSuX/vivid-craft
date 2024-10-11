@@ -9,9 +9,6 @@ interface UseAutoResizeProps {
 
 export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
 
-    console.log("autoResize");
-
-
     const autoZoom = useCallback(() => {
         console.log("autoZoom");
         if (!canvas || !container) return
@@ -23,7 +20,6 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
         canvas.setHeight(height);
 
         const center = canvas.getCenterPoint()
-        console.log('center', center);
 
 
         const zoomRatio = 0.85
@@ -38,8 +34,6 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
         });
 
         const zoom = scale * zoomRatio
-
-        console.log('fabric.iMatrix', fabric.iMatrix);
 
         canvas.setViewportTransform(fabric.iMatrix.concat());
         canvas.zoomToPoint(new fabric.Point(center.x, center.y), zoom);
@@ -63,14 +57,12 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
 
         canvas.setViewportTransform(viewportTransform);
 
-        localWorkspace.clone((cloned: fabric.Rect) => {
-            canvas.clipPath = cloned;
-            canvas.requestRenderAll();
-        });
-
-
-        console.log(localWorkspace, center, scale);
-
+        // (localWorkspace as fabric.Rect).clone((cloned: fabric.Rect) => {
+        //     console.log('cloned',cloned);
+            
+        //     canvas.clipPath = cloned;
+        //     canvas.requestRenderAll();
+        // });
 
     }, [canvas, container])
 
