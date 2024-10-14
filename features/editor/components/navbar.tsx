@@ -8,8 +8,15 @@ import Logo from "@/features/editor/components/logo"
 import { ChevronDown, Download, MousePointerClick, Redo2, Undo2 } from "lucide-react"
 import { BsCloudCheck } from "react-icons/bs"
 import { CiFileOn } from "react-icons/ci"
+import { ActiveTool } from "./types"
+import { cn } from "@/lib/utils"
 
-const Navbar = () => {
+interface NavbarProps {
+    activeTool: ActiveTool
+    onChangeActiveTool: (tool: ActiveTool) => void
+}
+
+const Navbar = ({ activeTool, onChangeActiveTool }: NavbarProps) => {
     return (
         <div className="w-full flex items-center p-4 h-[68px] gap-x-8 border-b lg:pl-[34px]">
             <Logo />
@@ -38,8 +45,8 @@ const Navbar = () => {
                 </DropdownMenu>
                 <Separator orientation='vertical' className=" mx-2" />
                 <Hint label="Select" side="bottom" sideOffset={10}>
-                    <Button variant='ghost' size={'icon'} onClick={() => { }}>
-                        <MousePointerClick className="size-4" />
+                    <Button variant='ghost' className={cn(activeTool === 'select' && 'bg-gray-100')} size={'icon'} onClick={() => { onChangeActiveTool('select') }}>
+                        <MousePointerClick className='size-4' />
                     </Button>
                 </Hint>
                 <Hint label="Undo" side="bottom" sideOffset={10}>
