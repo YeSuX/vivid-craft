@@ -35,7 +35,7 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
 
         const zoom = scale * zoomRatio
 
-        canvas.setViewportTransform(fabric.iMatrix.concat());
+        canvas.setViewportTransform(fabric.iMatrix.concat() as fabric.TMat2D);
         canvas.zoomToPoint(new fabric.Point(center.x, center.y), zoom);
 
         if (!localWorkspace) return;

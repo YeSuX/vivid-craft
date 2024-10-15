@@ -8,7 +8,7 @@ import Logo from "@/features/editor/components/logo"
 import { ChevronDown, Download, MousePointerClick, Redo2, Undo2 } from "lucide-react"
 import { BsCloudCheck } from "react-icons/bs"
 import { CiFileOn } from "react-icons/ci"
-import { ActiveTool } from "./types"
+import { ActiveTool } from "../types"
 import { cn } from "@/lib/utils"
 
 interface NavbarProps {
