@@ -7,9 +7,9 @@ import { useEditor } from "@/features/editor/hooks/use-editor"
 import Navbar from "@/features/editor/components/navbar"
 import Sidebar from "@/features/editor/components/sidebar"
 import Toolbar from "@/features/editor/components/toolbar"
-import Footer from "./footer"
-import { ActiveTool } from "../types"
-import ShapeSidebar from "./shape-sidebar"
+import Footer from "@/features/editor/components/footer"
+import { ActiveTool } from "@/features/editor/types"
+import ShapeSidebar from "@/features/editor/components/shape-sidebar"
 
 const Editor = () => {
     const [activeTool, setActiveTool] = useState<ActiveTool>('select')
@@ -31,7 +31,7 @@ const Editor = () => {
         setActiveTool(tool)
     }, [activeTool])
 
-    const { init } = useEditor()
+    const { init, editor } = useEditor()
 
     // this is the canvas that will be used to draw the shapes
     const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -70,6 +70,7 @@ const Editor = () => {
                 <ShapeSidebar
                     activeTool={activeTool}
                     onChangeActiveTool={onChangeActiveTool}
+                    editor={editor}
                 />
                 <main className=" bg-muted flex-1 overflow-auto relative flex flex-col">
                     <Toolbar />
