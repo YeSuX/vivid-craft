@@ -62,6 +62,12 @@ export const TRIANGLE_OPTIONS = {
 
 export type BuildEditorProps = {
     canvas: fabric.Canvas
+    fillColor: string
+    setFillColor: (color: string) => void
+    strokeColor: string
+    setStrokeColor: (color: string) => void
+    strokeWidth: number
+    setStrokeWidth: (width: number) => void
 }
 
 export interface Editor {
@@ -70,4 +76,11 @@ export interface Editor {
     addRectangle: () => void
     addTriangle: () => void
     addDiamond: () => void
+    changeFillColor: (color: string) => void
+    changeStrokeColor: (color: string) => void
+    changeStrokeWidth: (width: number) => void
+    fillColor: string
+    strokeColor: string
+    strokeWidth: number
+    canvas: fabric.Canvas
 }
