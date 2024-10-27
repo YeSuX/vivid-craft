@@ -12,7 +12,8 @@ const buildEditor = ({
     strokeColor,
     setStrokeColor,
     strokeWidth,
-    setStrokeWidth
+    setStrokeWidth,
+    selectedObject // 添加 selectedObject 到参数列表
 }: BuildEditorProps): Editor => {
 
     const center = (object: fabric.Object) => {
@@ -36,6 +37,7 @@ const buildEditor = ({
             canvas.getActiveObjects().forEach((obj) => {
                 obj.set({ fill: color })
             })
+            canvas.renderAll()
         },
         changeStrokeColor: (color: string) => {
             setStrokeColor(color)
@@ -47,33 +49,43 @@ const buildEditor = ({
 
                 obj.set({ stroke: color })
             })
+            canvas.renderAll()
         },
         changeStrokeWidth: (width: number) => {
             setStrokeWidth(width)
             canvas.getActiveObjects().forEach((obj) => {
                 obj.set({ strokeWidth: width })
             })
+            canvas.renderAll()
         },
         addCircle: () => {
             const circle = new fabric.Circle({
-                ...CIRCLE_OPTIONS
+                ...CIRCLE_OPTIONS,
+                fill: fillColor,
+                stroke: strokeColor,
+                strokeWidth: strokeWidth
             })
 
             addToCanvas(circle)
-            
         },
         addSoftRectangle: () => {
             const rectangle = new fabric.Rect({
                 ...RECTANGLE_OPTIONS,
                 rx: 20,
-                ry: 20
+                ry: 20,
+                fill: fillColor,
+                stroke: strokeColor,
+                strokeWidth: strokeWidth
             })
 
             addToCanvas(rectangle)
         },
         addRectangle: () => {
             const rectangle = new fabric.Rect({
-                ...RECTANGLE_OPTIONS
+                ...RECTANGLE_OPTIONS,
+                fill: fillColor,
+                stroke: strokeColor,
+                strokeWidth: strokeWidth
             })
 
             addToCanvas(rectangle)
@@ -82,6 +94,9 @@ const buildEditor = ({
             const triangle = new fabric.Triangle({
                 ...TRIANGLE_OPTIONS,
                 angle: 0,
+                fill: fillColor,
+                stroke: strokeColor,
+                strokeWidth: strokeWidth
             })
 
             addToCanvas(triangle)
@@ -95,7 +110,10 @@ const buildEditor = ({
                 new fabric.Point(WIDTH, HEIGHT / 2),
                 new fabric.Point(WIDTH / 2, HEIGHT)
             ], {
-                ...DIAMOND_OPTIONS
+                ...DIAMOND_OPTIONS,
+                fill: fillColor,
+                stroke: strokeColor,
+                strokeWidth: strokeWidth
             })
 
             addToCanvas(diamond)
@@ -103,7 +121,8 @@ const buildEditor = ({
         fillColor,
         strokeColor,
         strokeWidth,
-        canvas
+        canvas,
+        selectedObject // 确保 selectedObject 被正确返回
     }
 }
 
@@ -136,12 +155,13 @@ export const useEditor = () => {
                 strokeColor,
                 setStrokeColor,
                 strokeWidth,
-                setStrokeWidth
+                setStrokeWidth,
+                selectedObject,
             })
         }
 
         return undefined
-    }, [canvas, fillColor, strokeColor, strokeWidth])
+    }, [canvas, fillColor, strokeColor, strokeWidth, selectedObject])
 
     // this is the function that will be used to initialize the editor
     const init = useCallback((

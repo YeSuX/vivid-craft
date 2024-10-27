@@ -10,6 +10,7 @@ import Toolbar from "@/features/editor/components/toolbar"
 import Footer from "@/features/editor/components/footer"
 import { ActiveTool } from "@/features/editor/types"
 import ShapeSidebar from "@/features/editor/components/shape-sidebar"
+import FillColorSidebar from "./fill-color-sidebar"
 
 const Editor = () => {
     const [activeTool, setActiveTool] = useState<ActiveTool>('select')
@@ -71,6 +72,11 @@ const Editor = () => {
                     activeTool={activeTool}
                     onChangeActiveTool={onChangeActiveTool}
                     editor={editor}
+                />
+                <FillColorSidebar
+                    editor={editor}
+                    onChangeActiveTool={onChangeActiveTool}
+                    activeTool={activeTool}
                 />
                 <main className=" bg-muted flex-1 overflow-auto relative flex flex-col">
                     <Toolbar
