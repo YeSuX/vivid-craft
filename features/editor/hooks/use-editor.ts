@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import * as fabric from "fabric";
 import { useAutoResize } from "./use-auto-resize";
-import { BuildEditorProps, CIRCLE_OPTIONS, DIAMOND_OPTIONS, Editor, FILL_COLOR, RECTANGLE_OPTIONS, STROKE_COLOR, STROKE_WIDTH, TRIANGLE_OPTIONS } from "../types";
+import { BuildEditorProps, CIRCLE_OPTIONS, DIAMOND_OPTIONS, Editor, EditorHookProps, FILL_COLOR, RECTANGLE_OPTIONS, STROKE_COLOR, STROKE_WIDTH, TRIANGLE_OPTIONS } from "../types";
 import { useCanvasEvents } from "./use-canvas-events";
 import { isTextType } from "../utils";
 
@@ -118,15 +118,37 @@ const buildEditor = ({
 
             addToCanvas(diamond)
         },
-        fillColor,
-        strokeColor,
+        getActiveFillColor: () => {
+            const selectedObject = canvas.getActiveObject()
+            if (!selectedObject) {
+                return fillColor
+            }
+
+            const value = selectedObject.get('fill') || fillColor
+
+            // Currently, the value is always a string
+            return value as string
+        },
+        getActiveStrokeColor: () => {
+            const selectedObject = canvas.getActiveObject()
+            if (!selectedObject) {
+                return fillColor
+            }
+
+            const value = selectedObject.get('stroke') || strokeColor
+
+            // Currently, the value is always a string
+            return value as string
+        },
         strokeWidth,
         canvas,
         selectedObject // 确保 selectedObject 被正确返回
     }
 }
 
-export const useEditor = () => {
+export const useEditor = ({
+    clearSelectionCallback
+}: EditorHookProps) => {
     const [canvas, setCanvas] = useState<fabric.Canvas | null>(null)
     const [container, setContainer] = useState<HTMLDivElement | null>(null)
     const [selectedObject, setSelectedObject] = useState<fabric.Object[]>([])
@@ -143,7 +165,8 @@ export const useEditor = () => {
 
     useCanvasEvents({
         canvas,
-        setSelectedObject
+        setSelectedObject,
+        clearSelectionCallback
     })
 
     const editor = useMemo(() => {

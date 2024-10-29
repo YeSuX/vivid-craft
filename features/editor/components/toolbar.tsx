@@ -11,7 +11,8 @@ interface ToolbarProps {
 
 const Toolbar = ({ editor, activeTool, onChangeActiveTool }: ToolbarProps) => {
 
-    const fillColor = editor?.fillColor
+    const fillColor = editor?.getActiveFillColor()
+    const strokeColor = editor?.getActiveStrokeColor()
 
     if (editor?.selectedObject.length === 0) {
         return (
@@ -43,6 +44,29 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: ToolbarProps) => {
                         </div>
                     </Button>
                 </Hint>
+                <div className="flex items-center justify-center h-full">
+                    <Hint label="Stroke color" side="bottom" sideOffset={5}>
+                        <Button
+                            variant="ghost"
+                            className={
+                                cn(
+                                    activeTool === 'stroke-color' && "bg-gray-100"
+                                )
+                            }
+                            onClick={() => onChangeActiveTool('stroke-color')}
+                            size={'icon'}
+                        >
+                            <div
+                                className="rounded-sm size-4 border-2 bg-white"
+                                style={{
+                                    borderColor: strokeColor
+                                }}
+                            >
+
+                            </div>
+                        </Button>
+                    </Hint>
+                </div>
             </div>
         </div>
     )
