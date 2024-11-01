@@ -1,3 +1,4 @@
+import { STROKE_DASH_ARRAY } from './../types';
 import { useCallback, useMemo, useState } from "react";
 import * as fabric from "fabric";
 import { useAutoResize } from "./use-auto-resize";
@@ -13,7 +14,9 @@ const buildEditor = ({
     setStrokeColor,
     strokeWidth,
     setStrokeWidth,
-    selectedObject // 添加 selectedObject 到参数列表
+    selectedObject, // 添加 selectedObject 到参数列表
+    strokeDashArray,
+    setStrokeDashArray
 }: BuildEditorProps): Editor => {
 
     const center = (object: fabric.Object) => {
@@ -58,12 +61,20 @@ const buildEditor = ({
             })
             canvas.renderAll()
         },
+        changeStrokeDashArray: (value: number[]) => {
+            setStrokeDashArray(value)
+            canvas.getActiveObjects().forEach((obj) => {
+                obj.set({ strokeDashArray: value })
+            })
+            canvas.renderAll()
+        },
         addCircle: () => {
             const circle = new fabric.Circle({
                 ...CIRCLE_OPTIONS,
                 fill: fillColor,
                 stroke: strokeColor,
-                strokeWidth: strokeWidth
+                strokeWidth: strokeWidth,
+                strokeDashArray: strokeDashArray
             })
 
             addToCanvas(circle)
@@ -75,7 +86,8 @@ const buildEditor = ({
                 ry: 20,
                 fill: fillColor,
                 stroke: strokeColor,
-                strokeWidth: strokeWidth
+                strokeWidth: strokeWidth,
+                strokeDashArray: strokeDashArray
             })
 
             addToCanvas(rectangle)
@@ -85,7 +97,8 @@ const buildEditor = ({
                 ...RECTANGLE_OPTIONS,
                 fill: fillColor,
                 stroke: strokeColor,
-                strokeWidth: strokeWidth
+                strokeWidth: strokeWidth,
+                strokeDashArray: strokeDashArray
             })
 
             addToCanvas(rectangle)
@@ -96,7 +109,8 @@ const buildEditor = ({
                 angle: 0,
                 fill: fillColor,
                 stroke: strokeColor,
-                strokeWidth: strokeWidth
+                strokeWidth: strokeWidth,
+                strokeDashArray: strokeDashArray
             })
 
             addToCanvas(triangle)
@@ -113,7 +127,8 @@ const buildEditor = ({
                 ...DIAMOND_OPTIONS,
                 fill: fillColor,
                 stroke: strokeColor,
-                strokeWidth: strokeWidth
+                strokeWidth: strokeWidth,
+                strokeDashArray: strokeDashArray
             })
 
             addToCanvas(diamond)
@@ -140,7 +155,20 @@ const buildEditor = ({
             // Currently, the value is always a string
             return value as string
         },
-        strokeWidth,
+        getActiveStrokeWidth: () => {
+            const selectedObject = canvas.getActiveObject()
+            if (!selectedObject) {
+                return strokeWidth
+            }
+            return selectedObject.get('strokeWidth') || strokeWidth
+        },
+        getActiveStrokeDashArray: () => {
+            const selectedObject = canvas.getActiveObject()
+            if (!selectedObject) {
+                return strokeDashArray
+            }
+            return selectedObject.get('strokeDashArray') || strokeDashArray
+        }, 
         canvas,
         selectedObject // 确保 selectedObject 被正确返回
     }
@@ -156,6 +184,7 @@ export const useEditor = ({
     const [fillColor, setFillColor] = useState<string>(FILL_COLOR)
     const [strokeColor, setStrokeColor] = useState<string>(STROKE_COLOR)
     const [strokeWidth, setStrokeWidth] = useState<number>(STROKE_WIDTH)
+    const [strokeDashArray, setStrokeDashArray] = useState<number[]>(STROKE_DASH_ARRAY)
 
 
     useAutoResize({
@@ -180,11 +209,13 @@ export const useEditor = ({
                 strokeWidth,
                 setStrokeWidth,
                 selectedObject,
+                strokeDashArray,
+                setStrokeDashArray
             })
         }
 
         return undefined
-    }, [canvas, fillColor, strokeColor, strokeWidth, selectedObject])
+    }, [canvas, fillColor, strokeColor, strokeWidth, selectedObject, strokeDashArray])
 
     // this is the function that will be used to initialize the editor
     const init = useCallback((

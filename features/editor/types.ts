@@ -51,6 +51,7 @@ export type ActiveTool =
 export const FILL_COLOR = 'black'
 export const STROKE_COLOR = 'black'
 export const STROKE_WIDTH = 2
+export const STROKE_DASH_ARRAY = []
 
 
 export const CIRCLE_OPTIONS = {
@@ -105,6 +106,8 @@ export type BuildEditorProps = {
     setStrokeColor: (color: string) => void
     strokeWidth: number
     setStrokeWidth: (width: number) => void
+    strokeDashArray: number[]
+    setStrokeDashArray: (value: number[]) => void
 }
 
 export interface Editor {
@@ -116,9 +119,11 @@ export interface Editor {
     changeFillColor: (color: string) => void
     changeStrokeColor: (color: string) => void
     changeStrokeWidth: (width: number) => void
+    changeStrokeDashArray: (value: number[]) => void
     getActiveFillColor: () => string
-    getActiveStrokeColor:()=>string
-    strokeWidth: number
+    getActiveStrokeColor: () => string
+    getActiveStrokeWidth: () => number
+    getActiveStrokeDashArray: () => number[]
     canvas: fabric.Canvas
     selectedObject: fabric.Object[]
 }
