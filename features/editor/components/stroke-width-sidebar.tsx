@@ -3,6 +3,8 @@ import { ActiveTool, Editor } from "../types"
 import ToolSidebarHeader from "./tool-sidebar-header"
 import ToolSidebarClose from "./tool-sidebar-close"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Label } from "@/components/ui/label"
+import { Slider } from "@/components/ui/slider"
 
 interface StrokeWidthSidebarProps {
     activeTool: ActiveTool
@@ -29,10 +31,11 @@ const StrokeWidthSidebar = ({ activeTool, onChangeActiveTool, editor }: StrokeWi
                 activeTool === "stroke-width" ? 'visible' : 'hidden'
             )}
         >
-            <ToolSidebarHeader title="Stroke width" description="Select a stroke width for your canvas" />
+            <ToolSidebarHeader title="Stroke options" description="Select a stroke width for your canvas" />
             <ScrollArea>
-                <div className="p-4 space-y-6">
-                    
+                <div className="p-4 space-y-6 border-b">
+                    <Label className="text-sm">Stroke width</Label>
+                    <Slider />
                 </div>
             </ScrollArea>
             <ToolSidebarClose onClick={() => onChangeActiveTool("select")} />
