@@ -42,7 +42,7 @@ const OpacitySidebar = ({ activeTool, onChangeActiveTool, editor }: OpacitySideb
         <aside
             className={cn(
                 " bg-white relative border-r z-[40] w-[360px] h-full flex flex-col",
-                activeTool === "stroke-width" ? 'visible' : 'hidden'
+                activeTool === "opacity" ? 'visible' : 'hidden'
             )}
         >
             <ToolSidebarHeader title="Opacity" description="Select a opacity for your canvas" />
