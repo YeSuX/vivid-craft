@@ -116,6 +116,8 @@ export interface Editor {
     addRectangle: () => void
     addTriangle: () => void
     addDiamond: () => void
+    getActiveOpacity: () => number
+    changeOpacity: (value: number) => void
     bringToFront: () => void
     sendToBack: () => void
     changeFillColor: (color: string) => void

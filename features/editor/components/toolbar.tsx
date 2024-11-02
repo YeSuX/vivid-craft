@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils"
 import { ActiveTool, Editor } from "../types"
 import Hint from "@/components/hint"
 import { BsBorderWidth } from "react-icons/bs"
+import { RxTransparencyGrid } from "react-icons/rx"
 import { ArrowDown, ArrowUp } from "lucide-react"
 
 interface ToolbarProps {
@@ -105,6 +106,22 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: ToolbarProps) => {
                         size={'icon'}
                     >
                         <ArrowDown className="size-4"/>
+                    </Button>
+                </Hint>
+            </div>
+            <div className="flex items-center justify-center h-full">
+                <Hint label="Opacity" side="bottom" sideOffset={5}>
+                    <Button
+                        variant="ghost"
+                        onClick={() => onChangeActiveTool('opacity')}
+                        size={'icon'}
+                        className={
+                            cn(
+                                activeTool === 'opacity' && "bg-gray-100"
+                            )
+                        }
+                    >
+                        <RxTransparencyGrid className="size-4"/>
                     </Button>
                 </Hint>
             </div>
