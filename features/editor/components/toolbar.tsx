@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils"
 import { ActiveTool, Editor } from "../types"
 import Hint from "@/components/hint"
 import { BsBorderWidth } from "react-icons/bs"
+import { ArrowDown, ArrowUp } from "lucide-react"
 
 interface ToolbarProps {
     editor: Editor | undefined
@@ -85,7 +86,28 @@ const Toolbar = ({ editor, activeTool, onChangeActiveTool }: ToolbarProps) => {
                     </Button>
                 </Hint>
             </div>
-
+            <div className="flex items-center justify-center h-full">
+                <Hint label="Bring to front" side="bottom" sideOffset={5}>
+                    <Button
+                        variant="ghost"
+                        onClick={() => editor?.bringToFront()}
+                        size={'icon'}
+                    >
+                        <ArrowUp className="size-4"/>
+                    </Button>
+                </Hint>
+            </div>
+            <div className="flex items-center justify-center h-full">
+                <Hint label="Send to back" side="bottom" sideOffset={5}>
+                    <Button
+                        variant="ghost"
+                        onClick={() => editor?.sendToBack()}
+                        size={'icon'}
+                    >
+                        <ArrowDown className="size-4"/>
+                    </Button>
+                </Hint>
+            </div>
         </div>
     )
 }
