@@ -116,6 +116,8 @@ export interface Editor {
     addRectangle: () => void
     addTriangle: () => void
     addDiamond: () => void
+    bringToFront: () => void
+    sendToBack: () => void
     changeFillColor: (color: string) => void
     changeStrokeColor: (color: string) => void
     changeStrokeWidth: (width: number) => void
