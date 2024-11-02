@@ -13,6 +13,7 @@ import ShapeSidebar from "@/features/editor/components/shape-sidebar"
 import FillColorSidebar from "./fill-color-sidebar"
 import StrokeColorSidebar from "./stroke-color-sidebar"
 import StrokeWidthSidebar from "./stroke-width-sidebar"
+import OpacitySidebar from "./opacity-sidebar"
 
 const Editor = () => {
     const [activeTool, setActiveTool] = useState<ActiveTool>('select')
@@ -94,6 +95,11 @@ const Editor = () => {
                     activeTool={activeTool}
                 />
                 <StrokeWidthSidebar
+                    editor={editor}
+                    onChangeActiveTool={onChangeActiveTool}
+                    activeTool={activeTool}
+                />
+                <OpacitySidebar
                     editor={editor}
                     onChangeActiveTool={onChangeActiveTool}
                     activeTool={activeTool}
