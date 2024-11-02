@@ -19,6 +19,12 @@ const buildEditor = ({
     setStrokeDashArray
 }: BuildEditorProps): Editor => {
 
+    const getWorkspace = () => {
+        return canvas
+            .getObjects()
+            .find((object) => (object as fabric.Object & { name?: string }).name === "clip");
+    };
+
     const center = (object: fabric.Object) => {
         const workspace = canvas.getObjects().find((obj) => (obj as fabric.Object & { name?: string }).name === 'clip')
         const center = workspace?.getCenterPoint()
@@ -40,8 +46,6 @@ const buildEditor = ({
                 canvas.bringObjectForward(obj)
             })
             canvas.renderAll()
-
-            // TODO: Fix workspace overflow
         },
         sendToBack: () => {
             canvas.getActiveObjects().forEach((obj) => {
@@ -49,7 +53,10 @@ const buildEditor = ({
             })
             canvas.renderAll()
 
-            // TODO: Fix workspace overflow
+            const workspace = getWorkspace()
+            if (workspace) {
+                canvas.sendObjectToBack(workspace)
+            }
         },
         changeFillColor: (color: string) => {
             setFillColor(color)
@@ -184,7 +191,7 @@ const buildEditor = ({
                 return strokeDashArray
             }
             return selectedObject.get('strokeDashArray') || strokeDashArray
-        }, 
+        },
         canvas,
         selectedObject // 确保 selectedObject 被正确返回
     }
