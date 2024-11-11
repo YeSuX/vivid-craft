@@ -53,6 +53,8 @@ export const STROKE_COLOR = 'black'
 export const STROKE_WIDTH = 2
 export const STROKE_DASH_ARRAY = []
 
+export const FONT_SIZE = 32
+export const FONT_FAMILY = 'Arial'
 
 export const CIRCLE_OPTIONS = {
     radius: 50,
@@ -93,6 +95,15 @@ export const TRIANGLE_OPTIONS = {
     strokeWidth: STROKE_WIDTH,
 }
 
+export const TEXT_OPTIONS = {
+    type: 'textbox',
+    fill: FILL_COLOR,
+    left: 100,
+    top: 100,
+    fontSize: FONT_SIZE,
+    fontFamily: FONT_FAMILY,
+}
+
 export interface EditorHookProps {
     clearSelectionCallback?: () => void
 }
@@ -111,6 +122,7 @@ export type BuildEditorProps = {
 }
 
 export interface Editor {
+    addText: () => void
     addCircle: () => void
     addSoftRectangle: () => void
     addRectangle: () => void

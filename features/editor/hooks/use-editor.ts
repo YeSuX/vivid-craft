@@ -1,4 +1,4 @@
-import { STROKE_DASH_ARRAY } from './../types';
+import { STROKE_DASH_ARRAY, TEXT_OPTIONS } from './../types';
 import { useCallback, useMemo, useState } from "react";
 import * as fabric from "fabric";
 import { useAutoResize } from "./use-auto-resize";
@@ -41,6 +41,13 @@ const buildEditor = ({
     }
 
     return {
+        addText: () => {
+            const object = new fabric.Textbox('Hello',{
+                ...TEXT_OPTIONS,
+                fill: fillColor,
+            })
+            addToCanvas(object)
+        },
         getActiveOpacity: () => {
             return canvas.getActiveObject()?.get('opacity') || 1
         },
