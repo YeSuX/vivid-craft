@@ -33,6 +33,45 @@ const TextSidebar = ({ activeTool, onChangeActiveTool, editor }: TextSidebarProp
                     >
                         Add a textbox
                     </Button>
+                    <Button 
+                        onClick={() => editor?.addText('Heading', {
+                            fontSize: 80,
+                            fontWeight: 700,
+                        })}
+                        variant={'secondary'}
+                        size={'lg'}
+                        className="w-full"
+                    >
+                        <span className="font-bold">
+                            Add a heading
+                        </span>
+                    </Button>
+                    <Button 
+                        onClick={() => editor?.addText('Subheading', {
+                            fontSize: 40,
+                            fontWeight: 500,
+                        })}
+                        variant={'secondary'}
+                        size={'lg'}
+                        className="w-full"
+                    >
+                        <span className="font-semibold">
+                            Add a subheading
+                        </span>
+                    </Button>
+                    <Button 
+                        onClick={() => editor?.addText('Paragraph', {
+                            fontSize: 20,
+                            fontWeight: 400,
+                        })}
+                        variant={'secondary'}
+                        size={'lg'}
+                        className="w-full"
+                    >
+                        <span className="font-medium">
+                            Paragraph
+                        </span>
+                    </Button>
                     
                 </div>  
             </ScrollArea>
