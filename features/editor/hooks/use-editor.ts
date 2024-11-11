@@ -41,10 +41,11 @@ const buildEditor = ({
     }
 
     return {
-        addText: () => {
-            const object = new fabric.Textbox('Hello',{
-                ...TEXT_OPTIONS,
+        addText: (value, options) => {
+            const object = new fabric.Textbox(value)
+            object.set({
                 fill: fillColor,
+                ...options
             })
             addToCanvas(object)
         },

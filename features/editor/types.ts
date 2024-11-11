@@ -122,7 +122,7 @@ export type BuildEditorProps = {
 }
 
 export interface Editor {
-    addText: () => void
+    addText: (value: string,options?: fabric.TOptions<fabric.TextboxProps>) => void
     addCircle: () => void
     addSoftRectangle: () => void
     addRectangle: () => void

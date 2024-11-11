@@ -3,7 +3,7 @@ import { ActiveTool, Editor } from "../types"
 import ToolSidebarHeader from "./tool-sidebar-header"
 import ToolSidebarClose from "./tool-sidebar-close"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button"
 
 interface TextSidebarProps {
     activeTool: ActiveTool
@@ -27,7 +27,12 @@ const TextSidebar = ({ activeTool, onChangeActiveTool, editor }: TextSidebarProp
             <ToolSidebarHeader title="Text" description="Add text to your canvas" />
             <ScrollArea>
                 <div className="p-4 space-y-6 border-b">
-                    <Label className="text-sm">Text</Label>
+                    <Button 
+                        onClick={() => editor?.addText('Textbox')}
+                        className="w-full"
+                    >
+                        Add a textbox
+                    </Button>
                     
                 </div>  
             </ScrollArea>
